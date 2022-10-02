@@ -1,14 +1,13 @@
 import styled from "styled-components";
+import App from "./App";
+import react , { useState } from "react";
+import arrayperguntas from "./mock";
 
 
-export default function Respostas() {
+export default function Respostas(props) {
+  const { contadorFinal } = props 
     return (<FooterConcluidos>
-        <ContainerBotoes>
-            <BotaoVermelho>Não lembrei</BotaoVermelho>
-            <BotaoAmarelo>Quase não lembrei</BotaoAmarelo>
-            <BotaoVerde>Zap!</BotaoVerde>
-        </ContainerBotoes>
-0/4 Concluídos
+        {contadorFinal}/{arrayperguntas.length}Concluídos
     </FooterConcluidos>
 
     )
