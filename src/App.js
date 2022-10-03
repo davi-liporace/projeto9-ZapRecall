@@ -1,10 +1,9 @@
 import styled from "styled-components"
 import Titulo from "./Titulo"
-import ListaPerguntas from "./ListaPerguntas"
 import Respostas from "./Respostas"
 import arrayperguntas from "./mock";
 import ViraPerguntaAberta from "./PerguntaAberta";
-import react, { useState } from "react";
+import React, { useState } from "react";
 export default function App(){
     const [contadorFinal, setContadorFinal] = useState(0)
 
@@ -13,7 +12,7 @@ export default function App(){
     
      <Titulo />
     <>
-    {arrayperguntas.map((p) =><ViraPerguntaAberta contadorFinal={contadorFinal} setContadorFinal={setContadorFinal} id={p.id} pergunta ={p.pergunta} resposta = {p.resposta}/>)}
+    {arrayperguntas.map((p) =><ViraPerguntaAberta data-identifier="flashcard" contadorFinal={contadorFinal} setContadorFinal={setContadorFinal} id={p.id} pergunta ={p.pergunta} resposta = {p.resposta}/>)}
     </>
     <Respostas contadorFinal={contadorFinal}/> 
 

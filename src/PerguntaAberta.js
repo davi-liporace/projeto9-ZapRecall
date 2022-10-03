@@ -1,11 +1,18 @@
 import setavirar from "./assets/img/seta_virar.png"
 import styled from "styled-components";
 import setaplay from "./assets/img/seta_play.png"
-import react, { useState } from "react";
+import React, { useState } from "react";
+import errado from "./assets/img/icone_erro.png"
+import certo from "./assets/img/icone_certo.png"
+import quase from "./assets/img/icone_quase.png"
+
 
 export default function ViraPerguntaAberta(props) {
   const {contadorFinal, setContadorFinal} = props
   const [contador, setContador] = useState(0)
+  const [imagem, setImagem] = useState(setaplay)
+  const [corPergunta, setCorPergunta] = useState("#000000")
+  const [respondido, setRespondido] = useState("")
   function botaoPergunta() {
     return (
       setContador(contador + 1)
@@ -14,30 +21,46 @@ export default function ViraPerguntaAberta(props) {
     function rodaBotaoVermelho(){
       setContadorFinal(contadorFinal+1)
       setContador(0)
-
+      setImagem(errado)
+      setRespondido("line-through")
+      setCorPergunta("#FF3030")
+    }
+    function rodaBotaoAmarelo(){
+      setContadorFinal(contadorFinal+1)
+      setContador(0)
+      setImagem(quase)
+      setRespondido("line-through")
+      setCorPergunta("#FF922E")
+    }
+    function rodaBotaoVerde(){
+      setContadorFinal(contadorFinal+1)
+      setContador(0)
+      setImagem(certo)
+      setRespondido("line-through")
+      setCorPergunta("#2FBE34")
     }
   
 
   if (contador === 0) {
     return (
-      <PerguntaFechada >
+      <PerguntaFechada data-identifier="flashcard-index-item" corPergunta = {corPergunta} respondido = {respondido}>
         <p>Pergunta {props.id}</p>
-        <img src={setaplay} onClick={botaoPergunta} />
+        <img src={imagem} alt={imagem} onClick={botaoPergunta} data-identifier="flashcard-show-btn" />
       </PerguntaFechada>)
   } else if (contador === 1) {
     return (
-      <PerguntaAberta>
+      <PerguntaAberta data-identifier="flashcard-question">
         <p>{props.pergunta}</p>
-        <img src={setavirar} onClick={botaoPergunta} />
+        <img src={setavirar} alt={setavirar} onClick={botaoPergunta} data-identifier="flashcard-turn-btn"/>
       </PerguntaAberta>)
   }
   else {
-    return (<PerguntaAberta>
+    return (<PerguntaAberta data-identifier="flashcard-answer">
       <p>{props.resposta}</p>
       <ContainerBotoes>
             <BotaoVermelho onClick={rodaBotaoVermelho}>Não lembrei</BotaoVermelho>
-            <BotaoAmarelo>Quase não lembrei</BotaoAmarelo>
-            <BotaoVerde>Zap!</BotaoVerde>
+            <BotaoAmarelo onClick={rodaBotaoAmarelo}>Quase não lembrei</BotaoAmarelo>
+            <BotaoVerde onClick={rodaBotaoVerde}>Zap!</BotaoVerde>
         </ContainerBotoes>
     </PerguntaAberta>)
 
@@ -120,7 +143,8 @@ width: 300px;
   font-weight: 700;
   font-size: 16px;
   line-height: 19px;
-  color: #333333;}
+  text-decoration: ${props => props.respondido} ;
+  color:${props => props.corPergunta} }
 `
 
 
